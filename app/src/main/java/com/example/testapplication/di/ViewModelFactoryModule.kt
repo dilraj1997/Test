@@ -2,7 +2,7 @@ package com.example.testapplication.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.testapplication.RepoViewModel
+import com.example.testapplication.data.RepoViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
