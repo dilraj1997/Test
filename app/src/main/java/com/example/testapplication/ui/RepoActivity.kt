@@ -42,6 +42,7 @@ class RepoActivity : AppCompatActivity(), HasAndroidInjector {
         setContentView(mBinding.root)
 
         mAdapter = PRAdapter()
+        mAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         mBinding.repoList.addItemDecoration(CustomItemDecoration(resources.getDimension(R.dimen.size_10).toInt()))
         mBinding.repoList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mBinding.repoList.adapter = mAdapter

@@ -47,7 +47,7 @@ class PRViewHolder(private val mBinding: PrContainerBinding) : RecyclerView.View
             Glide
                 .with(mBinding.root.context)
                 .load(item.userDetails.avatarUrl)
-                .transform(CenterInside(), RoundedCorners(24))
+                .transform(CenterInside(), RoundedCorners(mResources.getDimension(R.dimen.size_6).toInt()))
                 .into(mBinding.avatar)
         }
     }
