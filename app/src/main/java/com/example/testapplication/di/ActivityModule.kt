@@ -1,7 +1,6 @@
 package com.example.testapplication.di
 
-import com.example.testapplication.RepoActivity
-import com.example.testapplication.RepoApplication
+import com.example.testapplication.ui.RepoActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
