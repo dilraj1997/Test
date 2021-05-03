@@ -22,8 +22,8 @@ class CustomItemDecoration(
         val position = parent.getChildAdapterPosition(view)
         if (position >= 0) {
             outRect.left = left
-            outRect.top = top
-            outRect.bottom = bottom
+            outRect.top = top / 2
+            outRect.bottom = bottom / 2
             outRect.right = right
         }
     }

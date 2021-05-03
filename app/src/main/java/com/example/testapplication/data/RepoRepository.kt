@@ -10,8 +10,9 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
     suspend fun getClosedPR(): List<PRData>? {
         val list = mPRRemoteDataSource.getClosedPR(mUser, mRepo)
         return mutableListOf<PRData>().apply {
-            for (i in 0 .. 100) {
+            for (i in 0 .. 50) {
                 add(list!![0])
+                add(list!![1])
             }
         }
     }
