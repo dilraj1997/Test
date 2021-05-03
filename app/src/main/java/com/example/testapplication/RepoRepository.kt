@@ -1,5 +1,7 @@
 package com.example.testapplication
 
+import javax.inject.Inject
 
-class RepoRepository {
+
+class RepoRepository @Inject constructor() {
 }
