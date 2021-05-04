@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -20,12 +21,14 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
         } catch (e: Exception) {
             null
         }
-        return if (list != null) {
-            mMasterList.apply {
-                addAll(list.map { PRItemType.PRItem(it) })
+        return withContext(Dispatchers.Default) {
+            if (list != null) {
+                mMasterList.apply {
+                    addAll(list.map { PRItemType.PRItem(it) })
+                }
+            } else {
+                null
             }
-        } else {
-            null
         }
     }
 
