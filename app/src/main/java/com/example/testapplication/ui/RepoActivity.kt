@@ -19,13 +19,10 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class RepoActivity : AppCompatActivity(), HasAndroidInjector {
+class RepoActivity : AppCompatActivity() {
     companion object {
         const val TAG = "RepoActivity"
     }
-
-    @Inject
-    lateinit var supportFragmentInjector: DispatchingAndroidInjector<Any>
 
     @Inject
     lateinit var viewModelFactory: CustomViewModelFactory
@@ -108,9 +105,5 @@ class RepoActivity : AppCompatActivity(), HasAndroidInjector {
                 }
             }
         }
-    }
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return supportFragmentInjector
     }
 }
