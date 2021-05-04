@@ -31,7 +31,7 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
         }
     }
 
-    suspend fun getClosedPR__(cursor: Int, isForce: Boolean) = flow {
+    suspend fun getPaginatedClosedPR(cursor: Int, isForce: Boolean) = flow {
         emit(PagedData(false, mMasterList.toMutableList().apply {
             if (isForce) {
                 removeAt(mMasterList.lastIndex)

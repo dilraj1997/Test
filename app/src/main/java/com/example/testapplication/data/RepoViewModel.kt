@@ -45,7 +45,7 @@ class RepoViewModel @Inject constructor(private val mRepoRepository: RepoReposit
                 if (!isForce) {
                     mCursor += 1
                 }
-                mRepoRepository.getClosedPR__(mCursor, isForce).collect { pagedData ->
+                mRepoRepository.getPaginatedClosedPR(mCursor, isForce).collect { pagedData ->
                     when (pagedData.pageValidity) {
                         true -> {
                             mIsLastPageFetched = true
