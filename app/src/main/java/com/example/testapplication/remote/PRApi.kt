@@ -11,6 +11,6 @@ interface PRApi {
         const val BASE_URL = "https://api.github.com/"
     }
 
-    @GET("/repos/{user}/{repo}/pulls?state=closed&per_page=11")
+    @GET("/repos/{user}/{repo}/pulls?state=closed&per_page=10")
     suspend fun getClosedPR(@Path("user") user: String, @Path("repo") repo: String, @Query("page") page: Int): List<PRData>?
 }
