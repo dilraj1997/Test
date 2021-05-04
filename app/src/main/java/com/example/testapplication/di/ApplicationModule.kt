@@ -1,16 +1,12 @@
 package com.example.testapplication.di
 
-import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import com.example.testapplication.RepoApplication
 import com.example.testapplication.remote.PRApi
-import com.example.testapplication.ui.PRAdapter
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
