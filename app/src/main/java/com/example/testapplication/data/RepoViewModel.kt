@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.testapplication.ui.ViewState
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 class RepoViewModel @Inject constructor(private val mRepoRepository: RepoRepository) : ViewModel() {
@@ -15,10 +16,20 @@ class RepoViewModel @Inject constructor(private val mRepoRepository: RepoReposit
         mPullRequestLiveData as LiveData<ViewState>
     }
 
-    private fun getClosedPullRequests() {
+    private val mMorePullRequestLiveData = MutableLiveData<PagedData>()
+    val morePullRequestLiveData by lazy {
+        mMorePullRequestLiveData as LiveData<PagedData>
+    }
+
+    private var mCursor = 1
+    private var mIsLoading = false
+    private var mIsLastPageFetched = false
+    private var mHasErrorOccurred = false
+
+    fun getClosedPullRequests() {
         viewModelScope.launch {
             mPullRequestLiveData.value = ViewState.Loading
-            val list = mRepoRepository.getClosedPR()
+            val list = mRepoRepository.getClosedPR(mCursor)
             if (list != null) {
                 mPullRequestLiveData.value = ViewState.DataLoaded(list)
             } else {
@@ -26,10 +37,31 @@ class RepoViewModel @Inject constructor(private val mRepoRepository: RepoReposit
             }
         }
     }
+
+    fun loadMoreItems(isForce: Boolean = false) {
+        if (!mIsLoading && !mIsLastPageFetched && (isForce || (!isForce && !mHasErrorOccurred))) {
+            mIsLoading = true
+            viewModelScope.launch {
+                if (!isForce) {
+                    mCursor += 1
+                }
+                mRepoRepository.getClosedPR__(mCursor, isForce).collect { pagedData ->
+                    when (pagedData.pageValidity) {
+                        true -> {
+                            mIsLastPageFetched = true
+                        }
+                        null -> {
+                            mHasErrorOccurred = true
+                        }
+                        else -> {
+                            mHasErrorOccurred = false
+                        }
+                    }
+                    mMorePullRequestLiveData.value = pagedData
+                }
+                mIsLoading = false
+            }
+        }
+    }
 }
 
-sealed class ViewState {
-    object Loading : ViewState()
-    class DataLoaded(val prList: List<PRData>) : ViewState()
-    object Failed : ViewState()
-}
