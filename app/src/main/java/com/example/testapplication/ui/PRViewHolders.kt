@@ -17,8 +17,8 @@ class PRViewHolder(private val mBinding: PrContainerBinding) : PRBaseViewHolder(
         if (item is PRItemType.PRItem) {
             Glide.with(mBinding.root.context).clear(mBinding.avatar)
             mBinding.prName.text = item.prData.title
-            mBinding.createdAt.text = mResources.getString(R.string.created_at, item.prData.createdAt)
-            mBinding.closedAt.text = mResources.getString(R.string.closed_at, item.prData.closedAt)
+            mBinding.createdAt.text = mResources.getString(R.string.created_at, item.prData.createdAt.replace("T", ", ").replace("Z", ""))
+            mBinding.closedAt.text = mResources.getString(R.string.closed_at, item.prData.closedAt.replace("T", ", ").replace("Z", ""))
             mBinding.userName.text = mResources.getString(R.string.by_user, item.prData.userDetails.userName)
             Glide.with(mBinding.root.context)
                 .load(item.prData.userDetails.avatarUrl)

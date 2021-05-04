@@ -21,9 +21,10 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
         }
         return if (list != null) {
             mMasterList.apply {
-                for (i in 0..10) {
-                    add(PRItemType.PRItem(list!![0]))
-                }
+//                for (i in 0..10) {
+//                    add(PRItemType.PRItem(list!![0]))
+//                }
+                addAll(list.map { PRItemType.PRItem(it) })
             }
         } else {
             null
@@ -45,7 +46,6 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
         } catch (e: Exception) {
             null
         }
-        val tempList = mutableListOf<PRItemType>()
 
         if (list == null) {
             val lastIndex = mMasterList.lastIndex
@@ -59,20 +59,21 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
             return@flow
         }
 
+        val newSize = list.size
         val lastIndex = mMasterList.lastIndex
         val newList = mMasterList.toMutableList().apply {
             removeAt(mMasterList.lastIndex)
-            for (i in 0 .. 10) {
-                if (list.isNotEmpty()) {
-                    add(PRItemType.PRItem(list!![0]))
-                    tempList.add(PRItemType.PRItem(list!![0]))
-                }
-            }
+//            for (i in 0 .. 10) {
+//                if (list.isNotEmpty()) {
+//                    add(PRItemType.PRItem(list!![0]))
+//                }
+//            }
+            addAll(list.map { PRItemType.PRItem(it) })
         }.also {
             mMasterList = it
         }
 
-        if (tempList.size <= 0) {
+        if (newSize <= 0) {
             emit(PagedData(true, newList, lastIndex, OperationType.REMOVED))
         } else {
             emit(PagedData(false, newList, lastIndex, OperationType.ADDED))
