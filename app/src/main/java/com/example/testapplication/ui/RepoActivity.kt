@@ -76,7 +76,7 @@ class RepoActivity : AppCompatActivity() {
                     mBinding.repoList.visibility = View.GONE
                     mBinding.repoList.visibility = View.VISIBLE
                     mAdapter.updateDataList(viewState.prList)
-                    mAdapter.notifyItemRangeInserted(0, viewState.prList.lastIndex)
+                    mAdapter.notifyItemRangeInserted(0, viewState.prList.lastIndex + 1)
                 }
                 ViewState.Failed -> {
                     mBinding.progressBar.visibility = View.GONE
@@ -92,7 +92,7 @@ class RepoActivity : AppCompatActivity() {
             when (pagedData.operationType) {
                 OperationType.ADDED -> {
                     mAdapter.notifyItemRemoved(pagedData.index)
-                    mAdapter.notifyItemRangeInserted(pagedData.index, pagedData.dataList.lastIndex - pagedData.index)
+                    mAdapter.notifyItemRangeInserted(pagedData.index, pagedData.dataList.lastIndex - pagedData.index + 1)
                 }
                 OperationType.CHANGED -> {
                     mAdapter.notifyItemChanged(pagedData.index)
