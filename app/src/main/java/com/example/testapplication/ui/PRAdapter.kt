@@ -41,27 +41,3 @@ class PRAdapter(val errorClickListener: () -> Unit) : RecyclerView.Adapter<PRBas
         mDataList = list
     }
 }
-
-
-//ListAdapter<ItemType, PRBaseViewHolder>(object : DiffUtil.ItemCallback<ItemType>() {
-//    override fun areItemsTheSame(oldItem: ItemType, newItem: ItemType): Boolean {
-//        return if (oldItem is ItemType.Loader && newItem is ItemType.Loader) {
-//            true
-//        } else if (oldItem is ItemType.PRItem && newItem is ItemType.PRItem) {
-//            oldItem.prData.id == newItem.prData.id
-//        } else {
-//            false
-//        }
-//    }
-//
-//    override fun areContentsTheSame(oldItem: ItemType, newItem: ItemType): Boolean {
-//        return if (oldItem is ItemType.Loader && newItem is ItemType.Loader) {
-//            true
-//        } else if (oldItem is ItemType.PRItem && newItem is ItemType.PRItem) {
-//            oldItem.prData.id == newItem.prData.id
-//        } else {
-//            false
-//        }
-//    }
-//
-//})
