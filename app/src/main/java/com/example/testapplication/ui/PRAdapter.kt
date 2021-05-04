@@ -8,7 +8,6 @@ import com.example.testapplication.R
 import com.example.testapplication.databinding.ErrorContainerBinding
 import com.example.testapplication.databinding.LoadingContainerBinding
 import com.example.testapplication.databinding.PrContainerBinding
-import java.lang.IllegalStateException
 
 class PRAdapter(val errorClickListener: () -> Unit) : RecyclerView.Adapter<PRBaseViewHolder>() {
     private var mDataList = listOf<PRItemType>()

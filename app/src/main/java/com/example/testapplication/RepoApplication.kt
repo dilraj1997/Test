@@ -1,8 +1,9 @@
 package com.example.testapplication
 
 import android.app.Application
-import android.util.Log
-import com.example.testapplication.di.*
+import com.example.testapplication.di.ApplicationComponent
+import com.example.testapplication.di.ApplicationModule
+import com.example.testapplication.di.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
