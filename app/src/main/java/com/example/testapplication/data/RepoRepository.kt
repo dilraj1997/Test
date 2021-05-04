@@ -14,6 +14,8 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
     private var mMasterList = mutableListOf<PRItemType>()
 
     suspend fun getClosedPR(cursor: Int): List<PRItemType>? {
+        // this delay is just for emulating network delay
+        delay(1000)
         val list = try {
             mPRRemoteDataSource.getClosedPR(mUser, mRepo, cursor)
         } catch (e: Exception) {
@@ -35,7 +37,9 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
             }
             add(PRItemType.Loader)
         }, mMasterList.lastIndex, if (isForce) OperationType.CHANGED else OperationType.ADDED))
-        delay(3000)
+
+        // this delay is just for emulating network delay
+        delay(1000)
         val list = try {
             mPRRemoteDataSource.getClosedPR(mUser, mRepo, cursor)
         } catch (e: Exception) {
