@@ -59,7 +59,7 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
             addAll(list.map { PRItemType.PRItem(it) })
         }
 
-        if (newSize <= 0 || newSize <= PRApi.PAGE_SIZE) {
+        if (newSize <= PRApi.PAGE_SIZE) {
             emit(PagedData(true, newList, lastIndex, OperationType.REMOVED))
         } else {
             emit(PagedData(false, newList, lastIndex, OperationType.ADDED))
