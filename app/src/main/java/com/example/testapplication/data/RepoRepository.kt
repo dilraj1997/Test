@@ -29,13 +29,11 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
     }
 
     suspend fun getPaginatedClosedPR(cursor: Int, isForce: Boolean) = flow {
-        emit(PagedData(false, mMasterList.toMutableList().apply {
+        emit(PagedData(false, mMasterList.apply {
             if (isForce) {
                 removeAt(mMasterList.lastIndex)
             }
             add(PRItemType.Loader)
-        }.also {
-            mMasterList = it
         }, mMasterList.lastIndex, if (isForce) OperationType.CHANGED else OperationType.ADDED))
         delay(3000)
         val list = try {
@@ -46,11 +44,9 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
 
         if (list == null) {
             val lastIndex = mMasterList.lastIndex
-            val newList = mMasterList.toMutableList().apply {
+            val newList = mMasterList.apply {
                 removeAt(mMasterList.lastIndex)
                 add(PRItemType.Error)
-            }.also {
-                mMasterList = it
             }
             emit(PagedData(null, newList, lastIndex, OperationType.CHANGED))
             return@flow
@@ -58,14 +54,12 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
 
         val newSize = list.size
         val lastIndex = mMasterList.lastIndex
-        val newList = mMasterList.toMutableList().apply {
+        val newList = mMasterList.apply {
             removeAt(mMasterList.lastIndex)
             addAll(list.map { PRItemType.PRItem(it) })
-        }.also {
-            mMasterList = it
         }
 
-        if (newSize <= 0) {
+        if (newSize <= 0 || newSize <= PRApi.PAGE_SIZE) {
             emit(PagedData(true, newList, lastIndex, OperationType.REMOVED))
         } else {
             emit(PagedData(false, newList, lastIndex, OperationType.ADDED))
