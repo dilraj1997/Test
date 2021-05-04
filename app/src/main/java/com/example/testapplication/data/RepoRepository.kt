@@ -21,9 +21,6 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
         }
         return if (list != null) {
             mMasterList.apply {
-//                for (i in 0..10) {
-//                    add(PRItemType.PRItem(list!![0]))
-//                }
                 addAll(list.map { PRItemType.PRItem(it) })
             }
         } else {
@@ -63,11 +60,6 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
         val lastIndex = mMasterList.lastIndex
         val newList = mMasterList.toMutableList().apply {
             removeAt(mMasterList.lastIndex)
-//            for (i in 0 .. 10) {
-//                if (list.isNotEmpty()) {
-//                    add(PRItemType.PRItem(list!![0]))
-//                }
-//            }
             addAll(list.map { PRItemType.PRItem(it) })
         }.also {
             mMasterList = it
