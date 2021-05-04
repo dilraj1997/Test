@@ -62,14 +62,16 @@ class RepoRepository @Inject constructor(private val mPRRemoteDataSource: PRApi,
         val lastIndex = mMasterList.lastIndex
         val newList = mMasterList.apply {
             removeAt(mMasterList.lastIndex)
-            addAll(list.map { PRItemType.PRItem(it) })
+            if (newSize > 0) {
+                addAll(list.map { PRItemType.PRItem(it) })
+            }
         }
 
         when {
             newSize <= 0 -> {
                 emit(PagedData(true, newList, lastIndex, OperationType.REMOVED))
             }
-            newSize <= PRApi.PAGE_SIZE -> {
+            newSize < PRApi.PAGE_SIZE -> {
                 emit(PagedData(true, newList, lastIndex, OperationType.ADDED))
             }
             else -> {

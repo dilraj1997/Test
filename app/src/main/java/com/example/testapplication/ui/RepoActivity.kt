@@ -92,7 +92,7 @@ class RepoActivity : AppCompatActivity() {
             when (pagedData.operationType) {
                 OperationType.ADDED -> {
                     mAdapter.notifyItemRemoved(pagedData.index)
-                    mAdapter.notifyItemRangeInserted(pagedData.index, pagedData.dataList.lastIndex)
+                    mAdapter.notifyItemRangeInserted(pagedData.index, pagedData.dataList.lastIndex - pagedData.index)
                 }
                 OperationType.CHANGED -> {
                     mAdapter.notifyItemChanged(pagedData.index)
