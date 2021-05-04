@@ -12,6 +12,7 @@ import com.example.testapplication.data.OperationType
 import com.example.testapplication.data.RepoViewModel
 import com.example.testapplication.databinding.ActivityMainBinding
 import com.example.testapplication.di.CustomViewModelFactory
+import com.example.testapplication.remote.PRApi
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -57,7 +58,7 @@ class RepoActivity : AppCompatActivity(), HasAndroidInjector {
                 val visibleItemCount = mLinearLayoutManager.childCount
                 val totalItemCount = mLinearLayoutManager.itemCount
                 val firstVisibleItemPosition = mLinearLayoutManager.findFirstVisibleItemPosition()
-                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= 10) {
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= PRApi.PAGE_SIZE) {
                     mRepoViewModel.loadMoreItems()
                 }
             }

@@ -53,7 +53,7 @@ class RepoViewModel @Inject constructor(private val mRepoRepository: RepoReposit
                         null -> {
                             mHasErrorOccurred = true
                         }
-                        else -> {
+                        false -> {
                             mHasErrorOccurred = false
                         }
                     }
