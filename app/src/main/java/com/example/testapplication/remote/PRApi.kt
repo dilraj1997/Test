@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface PRApi {
     companion object {
-        const val PAGE_SIZE = 20
+        const val PAGE_SIZE = 10
         const val BASE_URL = "https://api.github.com/"
     }
 
